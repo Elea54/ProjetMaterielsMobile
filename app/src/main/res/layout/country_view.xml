@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="10dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/county_view_cardview"
+        android:id="@+id/country_view_cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

@@ -1,5 +1,8 @@
 package fr.epf.min2.projetandroid.model
 
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
+
 data class Country(
     val officialName: String,
     val frenchName: String,
@@ -7,6 +10,7 @@ data class Country(
     val continent: String,
     val flag: String
 ){
+
     companion object {
         fun generateCountryList(): ArrayList<Country> {
             val countries = ArrayList<Country>()

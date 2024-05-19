@@ -15,6 +15,6 @@ class ListCountriesActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val countries = Country.generateCountryList()
-
+        recyclerView.adapter = CountryAdapter(countries)
     }
 }

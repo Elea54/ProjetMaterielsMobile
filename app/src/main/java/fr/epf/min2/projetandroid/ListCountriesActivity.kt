@@ -21,8 +21,6 @@ class ListCountriesActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.list_countries_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         synchro()
-//        val countries = Country.generateCountryList()
-//        recyclerView.adapter = CountryAdapter(countries)
     }
     private fun synchro() {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {

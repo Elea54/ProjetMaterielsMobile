@@ -1,15 +1,18 @@
 package fr.epf.min2.projetandroid.model
 
+import android.os.Parcelable
 import android.widget.ImageView
 import com.squareup.picasso.Picasso
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Country(
     val officialName: String,
     val frenchName: String,
-    val capital: String,
-    val continent: String,
+    val capital: List<String>,
+    val continent: List<String>,
     val flag: String
-){
+): Parcelable {
 
     companion object {
         fun generateCountryList(): ArrayList<Country> {
@@ -18,8 +21,8 @@ data class Country(
                 Country(
                     "France",
                     "France",
-                    "Paris",
-                    "Europe",
+                    listOf("Paris"),
+                    listOf("Europe"),
                     "https://flagcdn.com/w320/fr.png"
                 )
             )
@@ -27,8 +30,8 @@ data class Country(
                 Country(
                     "Deutschland",
                     "Allemagne",
-                    "Berlin",
-                    "Europe",
+                    listOf("Berlin"),
+                    listOf("Europe"),
                     "https://flagcdn.com/w320/de.png"
                 )
             )
@@ -36,8 +39,8 @@ data class Country(
                 Country(
                     "México",
                     "Méxique",
-                    "Mexico City",
-                    "North America",
+                    listOf("Mexico City"),
+                    listOf("North America"),
                     "https://flagcdn.com/w320/mx.png"
                 )
             )

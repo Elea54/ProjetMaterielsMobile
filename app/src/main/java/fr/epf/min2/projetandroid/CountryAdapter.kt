@@ -12,7 +12,7 @@ import fr.epf.min2.projetandroid.model.Country
 
 class CountryViewHolder(view : View) : RecyclerView.ViewHolder(view)
 
-class CountryAdapter(val coutries: ArrayList<Country>)  : RecyclerView.Adapter<CountryViewHolder>(){
+class CountryAdapter(val coutries: List<Country>)  : RecyclerView.Adapter<CountryViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.country_view, parent, false)
@@ -29,7 +29,7 @@ class CountryAdapter(val coutries: ArrayList<Country>)  : RecyclerView.Adapter<C
         countryNameTextView.text = country.frenchName
 
         val countryCapitalTextView = view.findViewById<TextView>(R.id.counrty_capital_textview)
-        countryCapitalTextView.text = country.capital
+        countryCapitalTextView.text = country.capital.get(0)
 
         val imageView = view.findViewById<ImageView>(R.id.courty_view_imageview)
         Picasso.get()

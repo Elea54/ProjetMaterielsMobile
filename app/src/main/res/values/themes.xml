@@ -3,6 +3,7 @@
     <style name="Base.Theme.ProjetAndroid" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#4169E1</item>
     </style>
 
     <style name="Theme.ProjetAndroid" parent="Base.Theme.ProjetAndroid" />

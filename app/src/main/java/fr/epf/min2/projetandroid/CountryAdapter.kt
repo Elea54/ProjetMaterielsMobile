@@ -50,7 +50,3 @@ class CountryAdapter(val coutries: List<Country>)  : RecyclerView.Adapter<Countr
         }
     }
 }
-
-fun View.click( action : (View) -> Unit){
-    this.setOnClickListener(action)
-}

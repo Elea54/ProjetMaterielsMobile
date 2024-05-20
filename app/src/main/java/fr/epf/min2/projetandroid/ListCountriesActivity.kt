@@ -3,6 +3,8 @@ package fr.epf.min2.projetandroid
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit
 class ListCountriesActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
+    lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,7 @@ class ListCountriesActivity : AppCompatActivity() {
 
         recyclerView = findViewById<RecyclerView>(R.id.list_countries_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        progressBar = findViewById<ProgressBar>(R.id.progress_bar)
         synchro()
     }
 
@@ -34,9 +38,9 @@ class ListCountriesActivity : AppCompatActivity() {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
+            .writeTimeout(120, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -49,6 +53,7 @@ class ListCountriesActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
+                progressBar.visibility = View.VISIBLE
                 Log.d("myTag", "avant")
                 val countryResults = countriesService.getAllCountries()
                 Log.d("myTag", countryResults.toString())
@@ -56,10 +61,12 @@ class ListCountriesActivity : AppCompatActivity() {
                     Country(it.name.common, it.translations.fra.common, it.capital, it.continents, it.flags.png)
                 }
                 Log.d("myTag", countries.toString())
+                progressBar.visibility = View.GONE
                 val adapter = CountryAdapter(countries)
                 recyclerView.adapter = adapter
             } catch (e: Exception) {
                 Log.e("myTag", "Error fetching countries", e)
+                progressBar.visibility = View.GONE
             }
         }
     }

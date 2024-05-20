@@ -1,5 +1,7 @@
 package fr.epf.min2.projetandroid
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import fr.epf.min2.projetandroid.model.Country
 
+const val COUNTRY_ID_EXTRA = "countryId"
 class CountryViewHolder(view : View) : RecyclerView.ViewHolder(view)
 
 class CountryAdapter(val coutries: List<Country>)  : RecyclerView.Adapter<CountryViewHolder>(){
@@ -37,5 +40,17 @@ class CountryAdapter(val coutries: List<Country>)  : RecyclerView.Adapter<Countr
             .into(imageView)
 
         val cardVIew = view.findViewById<CardView>(R.id.country_view_cardview)
+
+        cardVIew.click {
+            with(it.context){
+                val intent = Intent(this, CountryDetailsActivity::class.java)
+                intent.putExtra(COUNTRY_ID_EXTRA, country)
+                startActivity(intent)
+            }
+        }
     }
+}
+
+fun View.click( action : (View) -> Unit){
+    this.setOnClickListener(action)
 }

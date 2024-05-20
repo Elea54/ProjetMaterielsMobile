@@ -4,7 +4,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ListOfCountriesService{
-    @GET("translation/fr")
+//    @GET("translation/fr")
+    @GET("translation/France?fields=name,translations,capital,continents,flags")
     suspend fun getAllCountries(): List<CountryResult>
 }
 

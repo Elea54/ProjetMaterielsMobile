@@ -1,10 +1,14 @@
 package fr.epf.min2.projetandroid
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,10 +32,30 @@ class ListCountriesActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.list_countries_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         progressBar = findViewById<ProgressBar>(R.id.progress_bar)
-        synchro()
+        synchro("France")
     }
 
-    private fun synchro() {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_bar, menu)
+        val menuItem = menu?.findItem(R.id.search_bar_item)
+        val searchView = menuItem?.actionView as SearchView
+        searchView.queryHint ="Search Here"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                synchro(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                // Votre logique lors du changement de texte de la requête
+                return false
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+    private fun synchro(querySearched: String) {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -55,7 +79,6 @@ class ListCountriesActivity : AppCompatActivity() {
             try {
                 progressBar.visibility = View.VISIBLE
                 Log.d("myTag", "avant")
-                val querySearched = "Fr"
 
                 val countryResultsName = try {
                     countriesService.getCountriesByName(querySearched)

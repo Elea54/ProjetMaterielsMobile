@@ -1,12 +1,13 @@
 package fr.epf.min2.projetandroid
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ListOfCountriesService{
 //    @GET("translation/fr")
-    @GET("translation/Fr?fields=name,translations,capital,continents,flags")
-    suspend fun getAllCountries(): List<CountryResult>
+    @GET("translation/{country}?fields=name,translations,capital,continents,flags")
+    suspend fun getAllCountries(@Path("country") country: String): List<CountryResult>
 }
 
 data class CountryResult(val name: Name, val translations : Translations, val capital: List<String>,

@@ -55,7 +55,8 @@ class ListCountriesActivity : AppCompatActivity() {
             try {
                 progressBar.visibility = View.VISIBLE
                 Log.d("myTag", "avant")
-                val countryResults = countriesService.getAllCountries()
+                val countrySearched = "Fr"
+                val countryResults = countriesService.getAllCountries(countrySearched)
                 Log.d("myTag", countryResults.toString())
                 val countries = countryResults.map {
                     Country(it.name.common, it.translations.fra.common, it.capital, it.continents, it.flags.png)

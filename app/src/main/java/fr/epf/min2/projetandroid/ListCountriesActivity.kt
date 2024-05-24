@@ -55,8 +55,22 @@ class ListCountriesActivity : AppCompatActivity() {
             try {
                 progressBar.visibility = View.VISIBLE
                 Log.d("myTag", "avant")
-                val countrySearched = "Fr"
-                val countryResults = countriesService.getAllCountries(countrySearched)
+                val querySearched = "Fr"
+
+                val countryResultsName = try {
+                    countriesService.getCountriesByName(querySearched)
+                } catch (e: Exception) {
+                    Log.e("myTag", "Error fetching countries by name", e)
+                    emptyList<CountryResult>()
+                }
+
+                val countryResultsCapital = try {
+                    countriesService.getCountriesByCapital(querySearched)
+                } catch (e: Exception) {
+                    Log.e("myTag", "Error fetching countries by capital", e)
+                    emptyList<CountryResult>()
+                }
+                val countryResults = countryResultsName + countryResultsCapital
                 Log.d("myTag", countryResults.toString())
                 val countries = countryResults.map {
                     Country(it.name.common, it.translations.fra.common, it.capital, it.continents, it.flags.png)

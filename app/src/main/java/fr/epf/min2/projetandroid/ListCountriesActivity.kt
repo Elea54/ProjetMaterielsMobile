@@ -8,7 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,15 +39,16 @@ class ListCountriesActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.search_bar, menu)
         val menuItem = menu?.findItem(R.id.search_bar_item)
         val searchView = menuItem?.actionView as SearchView
-        searchView.queryHint ="Search Here"
+        searchView.queryHint = "Entrer un pays ou une capitale"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                recyclerView.adapter = null
                 synchro(query)
+                Log.d("myTag", query)
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                // Votre logique lors du changement de texte de la requête
                 return false
             }
         })
@@ -56,6 +57,11 @@ class ListCountriesActivity : AppCompatActivity() {
 
 
     private fun synchro(querySearched: String) {
+        var countryResultsName = listOf<CountryResult>()
+        var countryResultsCapital = listOf<CountryResult>()
+        var countryResults = listOf<CountryResult>()
+
+
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -80,20 +86,20 @@ class ListCountriesActivity : AppCompatActivity() {
                 progressBar.visibility = View.VISIBLE
                 Log.d("myTag", "avant")
 
-                val countryResultsName = try {
+                countryResultsName = try {
                     countriesService.getCountriesByName(querySearched)
                 } catch (e: Exception) {
                     Log.e("myTag", "Error fetching countries by name", e)
                     emptyList<CountryResult>()
                 }
 
-                val countryResultsCapital = try {
+                countryResultsCapital = try {
                     countriesService.getCountriesByCapital(querySearched)
                 } catch (e: Exception) {
                     Log.e("myTag", "Error fetching countries by capital", e)
                     emptyList<CountryResult>()
                 }
-                val countryResults = countryResultsName + countryResultsCapital
+                countryResults = countryResultsName + countryResultsCapital
                 Log.d("myTag", countryResults.toString())
                 val countries = countryResults.map {
                     Country(it.name.common, it.translations.fra.common, it.capital, it.continents, it.flags.png)

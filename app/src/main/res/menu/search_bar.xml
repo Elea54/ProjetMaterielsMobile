@@ -2,8 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search_bar_item"
+        android:icon="@drawable/search_svgrepo_com"
         android:title="Search"
-        android:icon="@drawable/vecteezy_magnifying_glass_or_search_icon_flat_vector_graphic_on_4897827"
-        app:showAsAction="ifRoom|collapseActionView"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

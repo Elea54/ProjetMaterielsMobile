@@ -1,11 +1,9 @@
 package fr.epf.min2.projetandroid
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.widget.SearchView
@@ -19,11 +17,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import java.text.Normalizer
+import java.util.regex.Pattern
 
 class ListCountriesActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
+    var countries = listOf<Country>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +34,14 @@ class ListCountriesActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.list_countries_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         progressBar = findViewById<ProgressBar>(R.id.progress_bar)
-        synchro("France")
+        synchro()
+//        quandAPIbug()
+    }
+
+    private fun quandAPIbug() {
+        countries = Country.generateCountryList()
+        val adapter = CountryAdapter(countries)
+        recyclerView.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,9 +52,8 @@ class ListCountriesActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 recyclerView.adapter = null
-                synchro(query)
-                Log.d("myTag", query)
-                return false
+                synchroSearch(removeSpecialChars(query.lowercase()))
+                return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
@@ -55,12 +63,29 @@ class ListCountriesActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun synchroSearch(query: String) {
+        Log.d("myTag", query)
+        var countriesSearched = countries.filter { removeSpecialChars(it.capital[0].lowercase()).contains(query) ||
+                removeSpecialChars(it.frenchName.lowercase()).contains(query) ||
+                removeSpecialChars(it.officialName.lowercase()).contains(query)
+        }
+        Log.d("myTag", countriesSearched.toString())
+        progressBar.visibility = View.GONE
+        val adapter = CountryAdapter(countriesSearched)
+        recyclerView.adapter = adapter
 
-    private fun synchro(querySearched: String) {
-        var countryResultsName = listOf<CountryResult>()
-        var countryResultsCapital = listOf<CountryResult>()
+    }
+
+    private fun removeSpecialChars(input: String): String {
+        val pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+        val normalized = Normalizer.normalize(input, Normalizer.Form.NFD)
+        val withoutAccents = pattern.matcher(normalized).replaceAll("")
+        return withoutAccents.replace("[\\s-]".toRegex(), "")
+    }
+
+
+    private fun synchro() {
         var countryResults = listOf<CountryResult>()
-
 
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -68,9 +93,9 @@ class ListCountriesActivity : AppCompatActivity() {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
-            .writeTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(180, TimeUnit.SECONDS)
+            .readTimeout(180, TimeUnit.SECONDS)
+            .writeTimeout(180, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -86,22 +111,14 @@ class ListCountriesActivity : AppCompatActivity() {
                 progressBar.visibility = View.VISIBLE
                 Log.d("myTag", "avant")
 
-                countryResultsName = try {
-                    countriesService.getCountriesByName(querySearched)
+                countryResults = try {
+                    countriesService.getAllCountries()
                 } catch (e: Exception) {
-                    Log.e("myTag", "Error fetching countries by name", e)
+                    Log.e("myTag", "Error fetching countries", e)
                     emptyList<CountryResult>()
                 }
-
-                countryResultsCapital = try {
-                    countriesService.getCountriesByCapital(querySearched)
-                } catch (e: Exception) {
-                    Log.e("myTag", "Error fetching countries by capital", e)
-                    emptyList<CountryResult>()
-                }
-                countryResults = countryResultsName + countryResultsCapital
                 Log.d("myTag", countryResults.toString())
-                val countries = countryResults.map {
+                countries = countryResults.map {
                     Country(it.name.common, it.translations.fra.common, it.capital, it.continents, it.flags.png)
                 }
                 Log.d("myTag", countries.toString())

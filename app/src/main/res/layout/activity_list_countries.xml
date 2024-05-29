@@ -10,7 +10,6 @@
         android:id="@+id/list_countries_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:itemCount="80"
         tools:listitem="@layout/country_view" />
 
     <ProgressBar

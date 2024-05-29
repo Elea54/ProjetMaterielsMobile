@@ -4,12 +4,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ListOfCountriesService{
-    @GET("translation/{countryName}?fields=name,translations,capital,continents,flags")
-    suspend fun getCountriesByName(@Path("countryName") country: String): List<CountryResult>
-
-    @GET("capital/{capital}?fields=name,translations,capital,continents,flags")
-    suspend fun getCountriesByCapital(@Path("capital") capital: String): List<CountryResult>
-
+    @GET("all?fields=name,translations,capital,continents,flags")
+    suspend fun getAllCountries(): List<CountryResult>
 }
 
 data class CountryResult(val name: Name, val translations : Translations, val capital: List<String>,

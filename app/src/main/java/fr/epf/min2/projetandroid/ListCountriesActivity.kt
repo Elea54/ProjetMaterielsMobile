@@ -34,8 +34,8 @@ class ListCountriesActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.list_countries_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         progressBar = findViewById<ProgressBar>(R.id.progress_bar)
-        synchro()
-//        quandAPIbug()
+//        synchro()
+        quandAPIbug()
     }
 
     private fun quandAPIbug() {

@@ -2,13 +2,17 @@ package fr.epf.min2.projetandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import fr.epf.min2.projetandroid.data.addCountryToList
 import fr.epf.min2.projetandroid.model.Country
 
 class CountryDetailsActivity : AppCompatActivity() {
+    private var country: Country? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_county_details)
@@ -20,7 +24,7 @@ class CountryDetailsActivity : AppCompatActivity() {
         val continentTextView = findViewById<TextView>(R.id.counrty_continent_details_textView)
 
         intent.extras?.apply {
-            val country = getParcelable(COUNTRY_ID_EXTRA) as? Country
+            country = getParcelable(COUNTRY_ID_EXTRA) as? Country
             country?.let {
                 Picasso.get()
                     .load(it.flag)
@@ -32,6 +36,10 @@ class CountryDetailsActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.favoris_menu, menu)
+        return true
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.star_favoris_item -> {
@@ -42,6 +50,7 @@ class CountryDetailsActivity : AppCompatActivity() {
     }
 
     private fun countryAsFavoris() {
-        TODO("Not yet implemented")
+        Log.d("myTag", "Favoris " + (country?.frenchName ))
+        country?.let { addCountryToList(this, it) }
     }
 }

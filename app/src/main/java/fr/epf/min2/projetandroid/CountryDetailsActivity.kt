@@ -1,8 +1,8 @@
 package fr.epf.min2.projetandroid
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -31,5 +31,17 @@ class CountryDetailsActivity : AppCompatActivity() {
                 continentTextView.text = it.continent.get(0)
             }
         }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.star_favoris_item -> {
+                countryAsFavoris()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun countryAsFavoris() {
+        TODO("Not yet implemented")
     }
 }

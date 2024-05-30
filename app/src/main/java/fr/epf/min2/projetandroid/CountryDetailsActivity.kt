@@ -9,6 +9,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import fr.epf.min2.projetandroid.data.addCountryToList
+import fr.epf.min2.projetandroid.data.isCountryInFavorisList
+import fr.epf.min2.projetandroid.data.removeCountryFromFavorisList
 import fr.epf.min2.projetandroid.model.Country
 
 class CountryDetailsActivity : AppCompatActivity() {
@@ -38,19 +40,37 @@ class CountryDetailsActivity : AppCompatActivity() {
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.favoris_menu, menu)
+        updateFavorisIcon(menu?.findItem(R.id.star_favoris_item))
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.star_favoris_item -> {
                 countryAsFavoris()
+                updateFavorisIcon(item)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    private fun updateFavorisIcon(item: MenuItem?) {
+        val isCountryFavoris = country?.let { isCountryInFavorisList(this, it) } ?: false
+        if (isCountryFavoris) {
+            item?.setIcon(R.drawable.baseline_star_24)
+        } else {
+            item?.setIcon(R.drawable.baseline_star_border_24)
+        }
+    }
+
     private fun countryAsFavoris() {
         Log.d("myTag", "Favoris " + (country?.frenchName ))
-        country?.let { addCountryToList(this, it) }
+        country?.let {
+            if (isCountryInFavorisList(this, it)) {
+                removeCountryFromFavorisList(this, it)
+            } else {
+                addCountryToList(this, it)
+            }
+        }
+//        clearJsonFile(this)
     }
 }

@@ -1,6 +1,7 @@
 package fr.epf.min2.projetandroid.data
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import fr.epf.min2.projetandroid.model.Country
@@ -10,17 +11,58 @@ fun saveListToJson(context: Context, list: List<Country>) {
     val gson = Gson()
     val jsonString = gson.toJson(list)
     File(context.filesDir, "countries.json").writeText(jsonString)
+    Log.d("myTag", "Chemin du fichier: ${context.filesDir.absolutePath}")
+    Log.d("myTag", "Liste sauvegardée dans le fichier: $jsonString")
 }
 
 fun readListFromJson(context: Context): List<Country> {
+    val file = File(context.filesDir, "countries.json")
+    if (!file.exists() || file.readText().isEmpty()) {
+        Log.d("myTag", "Le fichier est vide ou n'existe pas, retour d'une liste vide")
+        return emptyList()
+    }
+
     val gson = Gson()
-    val jsonString = File(context.filesDir, "countries.json").readText()
+    val jsonString = file.readText()
     val listType = object : TypeToken<List<Country>>() {}.type
-    return gson.fromJson(jsonString, listType)
+    val list = gson.fromJson<List<Country>>(jsonString, listType)
+    Log.d("myTag", "Liste lue du fichier : $list")
+    return list
 }
 
 fun addCountryToList(context: Context, newCountry: Country) {
     val list = readListFromJson(context).toMutableList()
-    list.add(newCountry)
-    saveListToJson(context, list)
+    if(!list.contains(newCountry)){
+        list.add(newCountry)
+        Log.d("myTag", "Nouvelle liste après ajout : $list")
+        saveListToJson(context, list)
+    }else{
+        Log.d("myTag", "Le pays est déjà présent dans la liste.")
+    }
+}
+
+fun isCountryInFavorisList(context: Context, country: Country): Boolean {
+    val favorisList = readListFromJson(context)
+    return favorisList.contains(country)
+}
+
+fun removeCountryFromFavorisList(context: Context, country: Country){
+    val list = readListFromJson(context).toMutableList()
+    if(list.contains(country)){
+        list.remove(country)
+        Log.d("myTag", "Nouvelle liste après suppression : $list")
+        saveListToJson(context, list)
+    }else{
+        Log.d("myTag", "Le pays n'est pas présent dans le fichier.")
+    }
+}
+
+fun clearJsonFile(context: Context) {
+    val file = File(context.filesDir, "countries.json")
+    if (file.exists()) {
+        file.writeText("")
+        Log.d("myTag", "Contenu du fichier JSON vidé avec succès.")
+    } else {
+        Log.d("myTag", "Le fichier JSON n'existe pas.")
+    }
 }

@@ -29,6 +29,10 @@
             android:label="Countries Finder"
             android:exported="true"/>
         <activity
+            android:name=".ListFavorisActivity"
+            android:label="Countries Finder"
+            android:exported="true"/>
+        <activity
             android:name=".CountryDetailsActivity"
             android:exported="false" />
     </application>

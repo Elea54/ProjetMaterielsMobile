@@ -12,10 +12,16 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val homeButton = findViewById<Button>(R.id.home_list_button)
+        val countriesListButton = findViewById<Button>(R.id.home_list_button)
+        val favorisListButton = findViewById<Button>(R.id.favoris_button)
 
-        homeButton.click {
+        countriesListButton.click {
             val intent = Intent(this, ListCountriesActivity::class.java)
+            startActivity(intent)
+        }
+
+        favorisListButton.click {
+            val intent = Intent(this, ListFavorisActivity::class.java)
             startActivity(intent)
         }
 

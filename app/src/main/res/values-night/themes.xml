@@ -3,5 +3,6 @@
     <style name="Base.Theme.ProjetAndroid" parent="Theme.Material3.DayNight">
         <item name="colorPrimary">#4169E1</item>
         <item name="android:windowBackground">#000000</item>
+        <item name="navigationIcon">@drawable/baseline_arrow_back_ios_24_white</item>
     </style>
 </resources>

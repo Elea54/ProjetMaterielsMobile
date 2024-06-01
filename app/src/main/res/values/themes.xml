@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">#4169E1</item>
         <item name="android:windowBackground">#FFFFFF</item>
+        <item name="navigationIcon">@drawable/baseline_arrow_back_ios_24_black</item>
     </style>
 
     <style name="Theme.ProjetAndroid" parent="Base.Theme.ProjetAndroid" />

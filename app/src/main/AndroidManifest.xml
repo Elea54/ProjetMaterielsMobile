@@ -26,10 +26,12 @@
         </activity>
         <activity
             android:name=".ListCountriesActivity"
+            android:parentActivityName=".HomeActivity"
             android:label="Countries Finder"
             android:exported="true"/>
         <activity
             android:name=".ListFavorisActivity"
+            android:parentActivityName=".HomeActivity"
             android:label="Countries Finder"
             android:exported="true"/>
         <activity
@@ -38,6 +40,7 @@
             android:exported="false" />
         <activity
             android:name=".QuizzFlagsActivity"
+            android:parentActivityName=".HomeActivity"
             android:label="Quizz"
             android:exported="false" />
     </application>

@@ -34,6 +34,11 @@
             android:exported="true"/>
         <activity
             android:name=".CountryDetailsActivity"
+            android:label="Fiche Pays"
+            android:exported="false" />
+        <activity
+            android:name=".QuizzFlagsActivity"
+            android:label="Quizz"
             android:exported="false" />
     </application>
 

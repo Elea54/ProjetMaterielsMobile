@@ -78,7 +78,8 @@ class QuizzFlagsActivity : AppCompatActivity() {
                 it.translations.fra.common,
                 if (it.capital.isEmpty()) listOf("") else it.capital,
                 if (it.continents.isEmpty()) listOf("") else it.continents,
-                it.flags.png
+                it.flags.png,
+                it.latlng
             )
         }
 

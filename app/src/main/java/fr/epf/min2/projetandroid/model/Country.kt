@@ -1,8 +1,6 @@
 package fr.epf.min2.projetandroid.model
 
 import android.os.Parcelable
-import android.widget.ImageView
-import com.squareup.picasso.Picasso
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -11,7 +9,8 @@ data class Country(
     val frenchName: String,
     val capital: List<String>,
     val continent: List<String>,
-    val flag: String
+    val flag: String,
+    val latlng: List<Double>
 ): Parcelable {
 
     companion object {
@@ -23,7 +22,8 @@ data class Country(
                     "France",
                     listOf("Paris"),
                     listOf("Europe"),
-                    "https://flagcdn.com/w320/fr.png"
+                    "https://flagcdn.com/w320/fr.png",
+                    listOf(46.0, 2.0)
                 )
             )
             countries.add(
@@ -32,7 +32,8 @@ data class Country(
                     "Allemagne",
                     listOf("Berlin"),
                     listOf("Europe"),
-                    "https://flagcdn.com/w320/de.png"
+                    "https://flagcdn.com/w320/de.png",
+                    listOf(51.0, 9.0)
                 )
             )
             countries.add(
@@ -41,7 +42,8 @@ data class Country(
                         "Italie",
                         listOf("Rome"),
                         listOf("Europe"),
-                        "https://flagcdn.com/w320/it.png"
+                        "https://flagcdn.com/w320/it.png",
+                        listOf(42.83333333, 12.83333333)
                     )
                     )
             countries.add(
@@ -50,7 +52,8 @@ data class Country(
                     "Espagne",
                     listOf("Madrid"),
                     listOf("Europe"),
-                    "https://flagcdn.com/w320/es.png"
+                    "https://flagcdn.com/w320/es.png",
+                    listOf(40.0, -4.0)
                 )
             )
             countries.add(
@@ -59,7 +62,8 @@ data class Country(
                     "États-Unis",
                     listOf("Washington, D.C."),
                     listOf("North America"),
-                    "https://flagcdn.com/w320/us.png"
+                    "https://flagcdn.com/w320/us.png",
+                    listOf(38.0, -97.0)
                 )
             )
             countries.add(
@@ -68,7 +72,8 @@ data class Country(
                     "Canada",
                     listOf("Ottawa"),
                     listOf("North America"),
-                    "https://flagcdn.com/w320/ca.png"
+                    "https://flagcdn.com/w320/ca.png",
+                    listOf(60.0, -95.0)
                 )
             )
             countries.add(
@@ -77,7 +82,8 @@ data class Country(
                     "Brésil",
                     listOf("Brasília"),
                     listOf("South America"),
-                    "https://flagcdn.com/w320/br.png"
+                    "https://flagcdn.com/w320/br.png",
+                    listOf(-10.0, -55.0)
                 )
             )
             countries.add(
@@ -86,7 +92,8 @@ data class Country(
                     "Argentine",
                     listOf("Buenos Aires"),
                     listOf("South America"),
-                    "https://flagcdn.com/w320/ar.png"
+                    "https://flagcdn.com/w320/ar.png",
+                    listOf(-34.0, -64.0)
                 )
             )
             countries.add(
@@ -95,7 +102,8 @@ data class Country(
                     "Japon",
                     listOf("Tokyo"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/jp.png"
+                    "https://flagcdn.com/w320/jp.png",
+                    listOf(36.0, 138.0)
                 )
             )
             countries.add(
@@ -104,7 +112,8 @@ data class Country(
                     "Corée du Sud",
                     listOf("Seoul"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/kr.png"
+                    "https://flagcdn.com/w320/kr.png",
+                    listOf(37.0, 127.5)
                 )
             )
             countries.add(
@@ -113,7 +122,8 @@ data class Country(
                     "Chine",
                     listOf("Beijing"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/cn.png"
+                    "https://flagcdn.com/w320/cn.png",
+                    listOf(22.16666666, 113.55)
                 )
             )
             countries.add(
@@ -122,7 +132,8 @@ data class Country(
                     "Australie",
                     listOf("Canberra"),
                     listOf("Oceania"),
-                    "https://flagcdn.com/w320/au.png"
+                    "https://flagcdn.com/w320/au.png",
+                    listOf(-27.0, 133.0)
                 )
             )
             countries.add(
@@ -131,7 +142,8 @@ data class Country(
                     "Nouvelle-Zélande",
                     listOf("Wellington"),
                     listOf("Oceania"),
-                    "https://flagcdn.com/w320/nz.png"
+                    "https://flagcdn.com/w320/nz.png",
+                    listOf(-41.0, 174.0)
                 )
             )
             countries.add(
@@ -140,7 +152,8 @@ data class Country(
                     "Inde",
                     listOf("New Delhi"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/in.png"
+                    "https://flagcdn.com/w320/in.png",
+                    listOf(20.0, 77.0)
                 )
             )
             countries.add(
@@ -149,7 +162,8 @@ data class Country(
                         "Russie",
                         listOf("Moscow"),
                         listOf("Europe", "Asia"),
-                        "https://flagcdn.com/w320/ru.png"
+                        "https://flagcdn.com/w320/ru.png",
+                        listOf(60.0, 100.0)
                     )
                     )
             countries.add(
@@ -158,7 +172,8 @@ data class Country(
                     "Égypte",
                     listOf("Cairo"),
                     listOf("Africa", "Asia"),
-                    "https://flagcdn.com/w320/eg.png"
+                    "https://flagcdn.com/w320/eg.png",
+                    listOf(27.0, 30.0)
                 )
             )
             countries.add(
@@ -167,7 +182,8 @@ data class Country(
                     "Afrique du Sud",
                     listOf("Pretoria", "Cape Town", "Bloemfontein"),
                     listOf("Africa"),
-                    "https://flagcdn.com/w320/za.png"
+                    "https://flagcdn.com/w320/za.png",
+                    listOf(-29.0, 24.0)
                 )
             )
             countries.add(
@@ -176,16 +192,8 @@ data class Country(
                     "Nigéria",
                     listOf("Abuja"),
                     listOf("Africa"),
-                    "https://flagcdn.com/w320/ng.png"
-                )
-            )
-            countries.add(
-                Country(
-                    "Saudi Arabia",
-                    "Arabie saoudite",
-                    listOf("Riyadh"),
-                    listOf("Asia"),
-                    "https://flagcdn.com/w320/sa.png"
+                    "https://flagcdn.com/w320/ng.png",
+                    listOf(10.0, 8.0)
                 )
             )
             countries.add(
@@ -194,7 +202,8 @@ data class Country(
                     "Turquie",
                     listOf("Ankara"),
                     listOf("Europe", "Asia"),
-                    "https://flagcdn.com/w320/tr.png"
+                    "https://flagcdn.com/w320/tr.png",
+                    listOf(39.0, 35.0)
                 )
             )
             countries.add(
@@ -203,7 +212,8 @@ data class Country(
                     "Thaïlande",
                     listOf("Bangkok"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/th.png"
+                    "https://flagcdn.com/w320/th.png",
+                    listOf(15.0, 100.0)
                 )
             )
             countries.add(
@@ -212,7 +222,8 @@ data class Country(
                     "Vietnam",
                     listOf("Hanoi"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/vn.png"
+                    "https://flagcdn.com/w320/vn.png",
+                    listOf(16.16666666, 107.83333333)
                 )
             )
             countries.add(
@@ -221,7 +232,8 @@ data class Country(
                     "Mexique",
                     listOf("Mexico City"),
                     listOf("North America"),
-                    "https://flagcdn.com/w320/mx.png"
+                    "https://flagcdn.com/w320/mx.png",
+                    listOf(23.0, -102.0)
                 )
             )
             countries.add(
@@ -230,7 +242,8 @@ data class Country(
                     "Indonésie",
                     listOf("Jakarta"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/id.png"
+                    "https://flagcdn.com/w320/id.png",
+                    listOf(-5.0, 120.0)
                 )
             )
             countries.add(
@@ -239,7 +252,8 @@ data class Country(
                     "Philippines",
                     listOf("Manila"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/ph.png"
+                    "https://flagcdn.com/w320/ph.png",
+                    listOf(13.0, 122.0)
                 )
             )
             countries.add(
@@ -248,7 +262,8 @@ data class Country(
                     "Iran",
                     listOf("Tehran"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/ir.png"
+                    "https://flagcdn.com/w320/ir.png",
+                    listOf(32.0, 53.0)
                 )
             )
             countries.add(
@@ -257,7 +272,8 @@ data class Country(
                     "Irak",
                     listOf("Baghdad"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/iq.png"
+                    "https://flagcdn.com/w320/iq.png",
+                    listOf(33.0, 44.0)
                 )
             )
             countries.add(
@@ -266,7 +282,8 @@ data class Country(
                     "Pakistan",
                     listOf("Islamabad"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/pk.png"
+                    "https://flagcdn.com/w320/pk.png",
+                    listOf(30.0, 70.0)
                 )
             )
             countries.add(
@@ -275,7 +292,8 @@ data class Country(
                     "Bangladesh",
                     listOf("Dhaka"),
                     listOf("Asia"),
-                    "https://flagcdn.com/w320/bd.png"
+                    "https://flagcdn.com/w320/bd.png",
+                    listOf(24.0, 90.0)
                 )
             )
             return countries

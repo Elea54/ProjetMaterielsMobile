@@ -12,12 +12,26 @@ import fr.epf.min2.projetandroid.data.addCountryToList
 import fr.epf.min2.projetandroid.data.isCountryInFavorisList
 import fr.epf.min2.projetandroid.data.removeCountryFromFavorisList
 import fr.epf.min2.projetandroid.model.Country
+import org.osmdroid.config.Configuration
+import org.osmdroid.library.BuildConfig
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.util.GeoPoint
+
 
 class CountryDetailsActivity : AppCompatActivity() {
     private var country: Country? = null
+    private lateinit var map: MapView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_county_details)
+
+        Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
+
+
+        map = findViewById<MapView>(R.id.countryMaps_mapView)
+        map.setBuiltInZoomControls(true)
+        map.setMultiTouchControls(true)
 
         val flagImageView = findViewById<ImageView>(R.id.country_flag_details_imageView)
         val frNameTextView = findViewById<TextView>(R.id.country_name_fr_details_textView)
@@ -35,8 +49,19 @@ class CountryDetailsActivity : AppCompatActivity() {
                 englishNameTextView.text = it.officialName
                 capitalTextView.text = it.capital.get(0)
                 continentTextView.text = it.continent.get(0)
+                val geoPoint = GeoPoint(it.latlng[0], it.latlng[1])
+                addMarker(geoPoint, it.officialName)
+                map.controller.setZoom(5.0)
+                map.controller.setCenter(geoPoint)
             }
         }
+    }
+
+    private fun addMarker(point: GeoPoint, title: String) {
+        val marker = Marker(map)
+        marker.position = point
+        marker.title = title
+        map.overlays.add(marker)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.favoris_menu, menu)
@@ -75,6 +100,5 @@ class CountryDetailsActivity : AppCompatActivity() {
                 addCountryToList(this, it)
             }
         }
-//        clearJsonFile(this)
     }
 }

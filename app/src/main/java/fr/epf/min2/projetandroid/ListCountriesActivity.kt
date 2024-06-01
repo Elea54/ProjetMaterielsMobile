@@ -34,8 +34,8 @@ class ListCountriesActivity : AppCompatActivity() {
         recyclerView = findViewById<RecyclerView>(R.id.list_countries_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         progressBar = findViewById<ProgressBar>(R.id.progress_bar)
-//        synchro()
-        quandAPIbug()
+        synchro()
+//        quandAPIbug()
     }
 
     private fun quandAPIbug() {
@@ -57,6 +57,8 @@ class ListCountriesActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
+                recyclerView.adapter = null
+                synchroSearch(removeSpecialChars(newText.lowercase()))
                 return false
             }
         })
@@ -119,7 +121,13 @@ class ListCountriesActivity : AppCompatActivity() {
                 }
                 Log.d("myTag", countryResults.toString())
                 countries = countryResults.map {
-                    Country(it.name.common, it.translations.fra.common, it.capital, it.continents, it.flags.png)
+                    Country(
+                        it.name.common,
+                        it.translations.fra.common,
+                        if (it.capital.isEmpty()) listOf("") else it.capital,
+                        if (it.continents.isEmpty()) listOf("") else it.continents,
+                        it.flags.png
+                    )
                 }
                 Log.d("myTag", countries.toString())
                 progressBar.visibility = View.GONE

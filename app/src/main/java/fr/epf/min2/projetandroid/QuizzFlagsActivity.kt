@@ -29,6 +29,7 @@ class QuizzFlagsActivity : AppCompatActivity() {
         quizzProgressBar = findViewById<ProgressBar>(R.id.quizz_progress_bar)
         val countryName = findViewById<TextView>(R.id.country_name_quizz_textView)
         countryName.text = ""
+        showPopup("Trouve le bon drapeau !", this)
         lifecycleScope.launch {
             quizzProgressBar.visibility = View.VISIBLE
             var countries = getAllCountriesFromAPI()

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_details"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fond_quiz_plus_clair">
 
     <ProgressBar
         android:id="@+id/quizz_progress_bar"
@@ -19,11 +20,11 @@
 
     <ImageView
         android:id="@+id/flag1_imageView"
-        android:layout_width="227dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginBottom="55dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="215dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="163dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flag2_imageView"
@@ -31,9 +32,11 @@
 
     <ImageView
         android:id="@+id/flag2_imageView"
-        android:layout_width="227dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="38dp"
+        android:layout_width="215dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="39dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flag3_imageView"
@@ -41,9 +44,11 @@
 
     <ImageView
         android:id="@+id/flag3_imageView"
-        android:layout_width="227dp"
-        android:layout_height="110dp"
-        android:layout_marginTop="73dp"
+        android:layout_width="215dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/country_name_quizz_textView"
@@ -53,26 +58,17 @@
         android:id="@+id/country_name_quizz_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="134dp"
+        android:layout_marginBottom="73dp"
         android:text="Country Name In French"
         android:textAlignment="center"
         android:textColor="#3F51B5"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/flag3_imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enonce_textView" />
-
-    <TextView
-        android:id="@+id/enonce_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="Trouver le bon drapeau !"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

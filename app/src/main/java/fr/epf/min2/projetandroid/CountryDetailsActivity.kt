@@ -92,7 +92,6 @@ class CountryDetailsActivity : AppCompatActivity() {
     }
 
     private fun countryAsFavoris() {
-        Log.d("myTag", "Favoris " + (country?.frenchName ))
         country?.let {
             if (isCountryInFavorisList(this, it)) {
                 removeCountryFromFavorisList(this, it)

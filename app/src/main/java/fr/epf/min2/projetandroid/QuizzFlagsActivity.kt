@@ -34,7 +34,6 @@ class QuizzFlagsActivity : AppCompatActivity() {
             quizzProgressBar.visibility = View.VISIBLE
             var countries = getAllCountriesFromAPI()
 //            var countries = getCountriesIfNotAPI()
-            Log.d("myTag", countries.toString())
             quizzProgressBar.visibility = View.GONE
             commencementQuizz(countries)
         }
@@ -98,7 +97,6 @@ class QuizzFlagsActivity : AppCompatActivity() {
         val randomMax = countriesList.size-1
         val indexRandomCountryToFind = Random.nextInt(0, randomMax+1)
         val countryToFind = countriesList.get(indexRandomCountryToFind)
-        Log.d("myTag", countryToFind.toString())
         listOfSelectedCountries.add(countryToFind)
         countryName.text = countryToFind.frenchName
 

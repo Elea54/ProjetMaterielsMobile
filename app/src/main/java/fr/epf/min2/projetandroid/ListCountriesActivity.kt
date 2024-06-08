@@ -66,12 +66,10 @@ class ListCountriesActivity : AppCompatActivity() {
     }
 
     private fun synchroSearch(query: String) {
-        Log.d("myTag", query)
         var countriesSearched = countries.filter { removeSpecialChars(it.capital[0].lowercase()).contains(query) ||
                 removeSpecialChars(it.frenchName.lowercase()).contains(query) ||
                 removeSpecialChars(it.officialName.lowercase()).contains(query)
         }
-        Log.d("myTag", countriesSearched.toString())
         progressBar.visibility = View.GONE
         val adapter = CountryAdapter(countriesSearched)
         recyclerView.adapter = adapter
@@ -111,7 +109,6 @@ class ListCountriesActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 progressBar.visibility = View.VISIBLE
-                Log.d("myTag", "avant")
 
                 countryResults = try {
                     countriesService.getAllCountries()
@@ -119,7 +116,6 @@ class ListCountriesActivity : AppCompatActivity() {
                     Log.e("myTag", "Error fetching countries", e)
                     emptyList<CountryResult>()
                 }
-                Log.d("myTag", countryResults.toString())
                 countries = countryResults.map {
                     Country(
                         it.name.common,
@@ -130,7 +126,6 @@ class ListCountriesActivity : AppCompatActivity() {
                         it.latlng
                     )
                 }
-                Log.d("myTag", countries.toString())
                 progressBar.visibility = View.GONE
                 val adapter = CountryAdapter(countries)
                 recyclerView.adapter = adapter

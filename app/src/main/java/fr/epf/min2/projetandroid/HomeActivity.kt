@@ -38,7 +38,6 @@ class HomeActivity : AppCompatActivity() {
 }
 
 fun View.click(action : (View) -> Unit){
-    Log.d("CLICK","click !")
     this.setOnClickListener(action)
 }
 
